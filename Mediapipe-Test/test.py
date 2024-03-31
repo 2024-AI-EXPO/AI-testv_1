@@ -3,10 +3,10 @@ import mediapipe as mp
 import numpy as np
 from keras.models import load_model
 
-actions = ['a', 'b', 'c', 'd', 'e', 'f']
+actions = [i for i in 'abcdefghi']
 seq_length = 30
 
-model = load_model('testmodel/test5.keras')
+model = load_model('alphabet/test2.keras')
 
 # mediapipe 기본 설정
 mp_hands = mp.solutions.hands
@@ -72,7 +72,7 @@ while cap.isOpened():
             i_pred = int(np.argmax(y_pred))
             conf = y_pred[i_pred]
             print(conf)
-            if conf < 0.75:
+            if conf < 0.8:
                 continue
 
             action = actions[i_pred]
