@@ -11,8 +11,9 @@ from keras.callbacks import ModelCheckpoint, ReduceLROnPlateau
 os.environ['CUDA_VISIBLE_DEVICES'] = '1'
 os.environ['TF_FORCE_GPU_ALLOW_GROWTH'] = 'true'
 
-actions = [i for i in 'klmnopqrs']
-path = 'dataset'
+actions = [i for i in 'abcdefghiklmnopqrstuvwxy0123456789']
+# actions.extend(['clear', 'space'])
+path = 'C:/Users/modeep1/Desktop/github/AI-testv_1/Mediapipe-Test/dataset'
 data = np.concatenate([np.load(path + f'/seq_{action}.npy') for action in actions], axis=0)
 
 x_data = data[:, :, :-1]
@@ -53,7 +54,7 @@ model.add(Dense(len(actions), activation='softmax', kernel_initializer=initializ
 model.compile(optimizer='adam', loss='categorical_crossentropy', metrics=['accuracy'])
 model.summary()
 
-folder_path = 'C:/Users/user/Downloads/AI-test-code/Mediapipe-Test/'
+folder_path = 'C:/Users/modeep1/Desktop/github/AI-testv_1/Mediapipe-Test/'
 
 history = model.fit(
     x_train,
@@ -62,7 +63,7 @@ history = model.fit(
     epochs=100,
     batch_size=16,
     callbacks=[
-        ModelCheckpoint(folder_path + 'alphabet/test2.keras', verbose=1, save_best_only=True, mode='auto'),
+        ModelCheckpoint(folder_path + 'testmodel/all1.keras', verbose=1, save_best_only=True, mode='auto'),
         ReduceLROnPlateau(factor=0.5, patience=50, verbose=1, mode='auto')
     ]
 )
