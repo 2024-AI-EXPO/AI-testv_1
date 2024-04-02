@@ -4,19 +4,16 @@ import time
 import numpy as np
 import mediapipe as mp
 
-# a, e 구분은 필요할 듯 <- 일단 보류
-# g 데이터 조금 더 정확하게 수집 <- 약간 우선 시 해야 함
-# j, z 작동 잘 함
-
-actions = [i for i in '0123456789']  # 원하는 동작 설정
-seq_length = 30  # LSTM 때문
-secs_for_action = 45  # 학습 시간 (초)
+actions = [i for i in 'abcdefghijklmnopqrstuvwxyz0123456789']  # 원하는 동작 설정
+actions.extend(['space', 'clear'])
+seq_length = 30
+secs_for_action = 30  # 학습 시간 (초)
 
 # mediapipe에 있는 hands 모델
 mp_hands = mp.solutions.hands
 mp_drawing = mp.solutions.drawing_utils
 hands = mp_hands.Hands(
-    max_num_hands=1,  # 2로 바꿀 예정x
+    max_num_hands=1,  # 2로 바꿀 예정
     min_tracking_confidence=0.5,
     min_detection_confidence=0.5
 )
@@ -44,7 +41,7 @@ while cap.isOpened():
             thickness=3
         )
         cv2.imshow('frame', frame)
-        cv2.waitKey(7000)  # 7초
+        cv2.waitKey(10000)  # 10초
 
         start_time = time.time()  # 처음 측정 시간
 
