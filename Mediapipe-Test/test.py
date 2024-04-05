@@ -3,10 +3,11 @@ import mediapipe as mp
 import numpy as np
 from keras.models import load_model
 
-actions = [i for i in 'abcdefghi']
+# abcdefghiklmnopqrstuvwxy0123456789
+actions = [i for i in 'abcdefghiklmnopqrstuvwxy0123456789']
+actions.extend(['space', 'clear'])
 seq_length = 30
-
-model = load_model('alphabet/test2.keras')
+model = load_model('models/model_v4.keras')
 
 # mediapipe 기본 설정
 mp_hands = mp.solutions.hands
